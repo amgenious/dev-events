@@ -60,6 +60,9 @@ bookingSchema.index({ eventId: 1 });
 // Create compound index for unique booking per email per event (optional, uncomment if needed)
 bookingSchema.index({ eventId: 1, email: 1 }, { unique: true });
 
+// Enforce one booking per events per email
+bookingSchema.index({ eventId: 1, email: 1 }, { unique: true, name: 'uniq_event_email' });
+
 // Create and export the Booking model
 const Booking: Model<IBooking> =
   mongoose.models.Booking || mongoose.model<IBooking>('Booking', bookingSchema);
